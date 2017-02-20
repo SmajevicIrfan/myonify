@@ -183,7 +183,7 @@ module.exports = function(name, res) {
             });
           });
 
-          //fs.unlink();
+          fs.unlink(__dirname + '/' + name + '.csv');
       }
     });
   }
