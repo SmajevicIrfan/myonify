@@ -13,10 +13,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/', upload.single('dataCSV'), function(req, res, next) {
   var data = req.file.buffer;
-  var newPath = __dirname + '/../files/myOn.csv';
+  console.log(req.file);
+  var newPath = __dirname + '/../files/' + req.file.originalname;
 
   fs.writeFile(newPath, data, function(err) {
-    var parse = require('../files/parser')(res);
+    var parse = require('../files/parser')(req.file.originalname, res);
     console.log(parse);
     if (parse) {
       //var file = __dirname + '/../files/data.zip';

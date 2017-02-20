@@ -10,7 +10,9 @@ var students = {};
 var scores = {};
 var schools = ['undef'];
 var fields;
-module.exports = function(res) {
+module.exports = function(name, res) {
+  name = name.split('.')[0];
+
   fs.readFile('./files/student-ids.csv', 'utf8', (err, data) => {
     if (err) throw err;
 
@@ -26,8 +28,6 @@ module.exports = function(res) {
       output.forEach(function(student, i) {
         if (i) {
           students[student[id]] = {
-            firstName : student[keys['first_name']],
-            lastName  : student[keys['last_name']],
             school    : student[keys['institution']],
             class     : student[keys['class']]
           }
@@ -45,7 +45,7 @@ module.exports = function(res) {
   var workbooks = [];
   var headers = {};
   function _done() {
-    fs.readFile('./files/myOn.csv', 'utf8', (err, data) => {
+    fs.readFile('./files/' + name + '.csv', 'utf8', (err, data) => {
       if (err) throw err;
 
       parse(data, { comment: '#' }, function(err, output) {
@@ -63,7 +63,10 @@ module.exports = function(res) {
             var obj = {};
 
             for (var i = 0; i < len; i++) {
-              obj[output[0][i]] = student[i];
+              if (isNaN(student[i]) || student[i] == '')
+                obj[output[0][i]] = student[i];
+              else
+                obj[output[0][i]] = parseFloat(student[i]);
             }
 
             if (students[student[id]] != undefined) {
@@ -84,12 +87,12 @@ module.exports = function(res) {
           }
         });
 
-        if (scores['IHT']) {
+        /*if (scores['IHT']) {
           var wstream = fs.createWriteStream(__dirname + '/temp.json');
 
           wstream.write(JSON.stringify(scores, null, '\t'));
           wstream.end();
-        }
+        }*/
 
         end();
       });
@@ -102,12 +105,32 @@ module.exports = function(res) {
       workbooks[index] = new Excel.Workbook();
 
       if (school == 'undef') {
+        /*workbooks[index].xlsx.readFile(__dirname + '/empty.xlsx')
+          .then(function() {
+            var worksheet = workbooks[index].getWorksheet('Welcome');
 
+            worksheet.addRow(fields);
+            for (var student in scores[school]) {
+              var tmp = [];
+              for (var data in scores[school][student])
+                tmp.push(scores[school][student][data]);
+
+              worksheet.addRow(tmp);
+            }
+
+            workbooks[index].xlsx.writeFile(__dirname + '/data/' + school + '.xlsx')
+              .then(function() {
+                  console.log(school, "saved");
+                  if (index >= schools.length - 1)
+                    zippy();
+              });
+          });*/
       }
       else {
         workbooks[index].xlsx.readFile(__dirname + '/empty.xlsx')
           .then(function() {
             var worksheet = workbooks[index].getWorksheet('Welcome');
+            worksheet.addRow(fields.concat(['class']));
 
             var sheets = {};
             for (var _class in scores[school]) {
@@ -121,6 +144,7 @@ module.exports = function(res) {
                   tmp.push(scores[school][_class][student][data]);
 
                 sheets[_class].addRow(tmp);
+                worksheet.addRow(tmp.concat([_class]));
               }
             }
 
@@ -138,14 +162,28 @@ module.exports = function(res) {
   var p = false;
   function zippy() {
     console.log("zipping")
-    zipFolder(__dirname + '/data', __dirname + '/data.zip', function(err) {
+    zipFolder(__dirname + '/data', __dirname + '/' + name + '.zip', function(err) {
       if(err) {
           console.log('oh no!', err);
       } else {
           console.log('EXCELLENT');
 
-          var zip = __dirname + '/data.zip';
+          var zip = __dirname + '/' + name + '.zip';
           res.download(zip);
+
+          dirname = __dirname + '/data';
+          fs.readdir(dirname, function(err, filenames) {
+            if (err) {
+              onError(err);
+              return;
+            }
+            filenames.forEach(function(filename) {
+              console.log(dirname + '/' + filename);
+              fs.unlink(dirname + '/' + filename);
+            });
+          });
+
+          //fs.unlink();
       }
     });
   }
