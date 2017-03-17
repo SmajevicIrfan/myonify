@@ -148,12 +148,16 @@ module.exports = function(name, res) {
               }
             }
 
-            workbooks[index].xlsx.writeFile(__dirname + '/data/' + school + '.xlsx')
-              .then(function() {
-                  console.log(school, "saved");
-                  if (index >= schools.length - 1)
-                    zippy();
-              });
+            fs.open(__dirname + '/data/' + school + '.xlsx', 'w', (err, fd) => {
+              console.log('file for', school, 'created!');
+
+              workbooks[index].xlsx.writeFile(__dirname + '/data/' + school + '.xlsx')
+                .then(function() {
+                    console.log(school, "saved");
+                    if (index >= schools.length - 1)
+                      zippy();
+                });
+            });
           });
       }
     });
