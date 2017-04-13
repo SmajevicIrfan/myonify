@@ -10,7 +10,11 @@ var students = {};
 var scores = {};
 var schools = ['undef'];
 var fields;
-module.exports = function(name, res) {
+
+var jsdom = require("jsdom");
+var template = fs.readFileSync('./public/images/template.svg', 'utf8');
+
+module.exports = function(name, res, chosenSchool) {
   name = name.split('.')[0];
 
   fs.readFile('./files/student-ids.csv', 'utf8', (err, data) => {
@@ -58,6 +62,7 @@ module.exports = function(name, res) {
         var id = headers['student_sis_id'];
 
         var _len = output.length;
+
         output.forEach(function(student, _i) {
           if (_i) {
             var obj = {};
@@ -70,6 +75,57 @@ module.exports = function(name, res) {
             }
 
             if (students[student[id]] != undefined) {
+              /*
+               * CERTIFICATE
+               */
+               console.log(students[student[id]]['school'] + " <> " + chosenSchool);
+               if (students[student[id]]['school'] == chosenSchool) {
+                 console.log(obj.student_name_first + ' ' + obj.student_name_last);
+                 jsdom.env({
+                   html: template,
+                   done: function(errors, window) {
+                     var document = window.document;
+
+                     var a = document.getElementById("certificate");
+                     // Get the SVG document inside the Object tag
+                     var svgDoc = a.contentDocument;
+                     svgEl = svgDoc.getElementsByTagName('svg')[0];
+
+                     var name = svgDoc.querySelector('#name');
+                     var title = svgDoc.querySelector('#title');
+
+                     name.textContent = obj.student_name_first + ' ' + obj.student_name_last;
+
+                     var nameH = name.getBoundingClientRect().height;
+                     var nameW = name.getBoundingClientRect().width;
+                     var nameTop = name.getBoundingClientRect().top;
+
+                     var xforms = title.transform.baseVal; // An SVGTransformList
+                     var firstXForm = xforms.getItem(0);       // An SVGTransform
+
+                     var certL = firstXForm.matrix.e;
+                     var certTop = firstXForm.matrix.f;
+                     var certW = title.getBoundingClientRect().width;
+
+                     var rateX = certL / title.getBoundingClientRect().left;
+                     var rateY = certTop / title.getBoundingClientRect().top;
+
+                     var tmp = (nameW - certW) / 2 * rateX;
+
+                     // Setting
+                     name.transform.baseVal.getItem(0).setTranslate(certL - tmp, nameTop - nameH / 2);
+
+                     fs.writeFile(__dirnamame + '/data/' + obj.student_name_first + '_' + obj.student_name_last + '.svg',
+                                  '<?xml version="1.0" encoding="utf-8"?>\n' + document.getElementsByTagName('svg')[0].outerHTML,
+                                  (err) => {
+
+                      if (err) throw err;
+                      console.log('The file has been saved!');
+                    });
+                   }
+                });
+              }
+              /****************************************/
               if (scores[students[student[id]]['school']] == undefined)
                 scores[students[student[id]]['school']] = {};
 
@@ -134,7 +190,6 @@ module.exports = function(name, res) {
 
             var sheets = {};
             for (var _class in scores[school]) {
-              console.log(school + ": " + _class);
               sheets[_class] = workbooks[index].addWorksheet(_class);
 
               sheets[_class].addRow(fields);
@@ -183,7 +238,8 @@ module.exports = function(name, res) {
             }
             filenames.forEach(function(filename) {
               console.log(dirname + '/' + filename);
-              fs.unlink(dirname + '/' + filename);
+              if (filename != 'certificates')
+                fs.unlink(dirname + '/' + filename);
             });
           });
 
