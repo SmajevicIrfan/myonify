@@ -32,6 +32,7 @@ module.exports = function() {
     }
 
     fs.writeFile(newPath, data, function(err) {
+      console.log(__dirname + '/../csv-parser.py');
       PythonShell.run(__dirname + '/../csv-parser.py', options, function(err, results) {
         if (err)
           throw err;
