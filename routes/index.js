@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var fs = require('fs');
-//Umm... is it bad that I kinda want beaty music
+const path = require('path');
+
 var multer  = require('multer')
 var upload = multer();
 
@@ -32,8 +33,9 @@ module.exports = function() {
     }
 
     fs.writeFile(newPath, data, function(err) {
-      console.log(__dirname + '/../csv-parser.py');
-      PythonShell.run(__dirname + '/../csv-parser.py', options, function(err, results) {
+      scriptFile = path.join(path.dirname(__dirname), 'csv-parser.py');
+      console.log(scriptFile);
+      PythonShell.run(scriptFile, options, function(err, results) {
         if (err)
           throw err;
 
