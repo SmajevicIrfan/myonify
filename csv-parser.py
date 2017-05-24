@@ -3,11 +3,6 @@ from os import path, remove
 import csv
 import certificates, excel
 
-def printASCII(__string):
-    print(__string.replace('č', 'c').replace('ć', 'c').replace('đ', 'd').replace('š', 's').replace('ž', 'z')
-                  .replace('Č', 'C').replace('Ć', 'C').replace('Đ', 'D').replace('Š', 'S').replace('Ž', 'Z')
-                  .replace('\u0131', 'i').replace('\u011f', 'g').replace('\u015e', 'S').replace('\u015f', 's'))
-
 def parse(filename, dates, signature):
     excel.clear()
     certificates.clear()
