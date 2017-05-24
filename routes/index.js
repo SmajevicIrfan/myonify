@@ -35,7 +35,8 @@ module.exports = function() {
     fs.writeFile(newPath, data, function(err) {
       console.log("CSV saved locally!");
 
-      scriptFile = path.join(path.dirname(__dirname), 'csv-parser.py');
+      scriptFile = path.resolve(__dirname, 'csv-parser.py');
+      console.log("Running scrpt from: " + scriptFile);
       PythonShell.run(scriptFile, options, function(err, results) {
         if (err)
           throw err;
@@ -45,7 +46,7 @@ module.exports = function() {
         if (results[0] == '1\r') {
           fs.unlink(newPath);
 
-          var zipName = __dirname + '/' + csvName + '.zip';
+          var zipName = __dirname + '/../data/tmp/' + csvName + '.zip';
           zipFolder(__dirname + '/../data/download', zipName, function(err) {
             res.download(zipName);
           });
