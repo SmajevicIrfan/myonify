@@ -4,53 +4,20 @@ block content
   form(method='post', enctype='multipart/form-data', onsubmit="loadSocket()")
     input(type="file", name="dataCSV")
     br
-    select#school(name='school')
-      option(value='IHZ') IHZ
-      option(value='IPB') IPB
-      option(value='ISI') ISI
-      option(value='ISIM') ISIM
-      option(value='IST') IST
-      option(value='ISZ') ISZ
-      option(value='SCI') SCI
-      option(value='USC') USC
+    br
+    p Dates
+    label(for="from") From:  
+    input(type="date", id="from", name="from")
+    br
+    label(for="To") To:  
+    input(type="date", id="to", name="to")
+    br
+    br
+    label(for="signature") Who is signing the certificates?
+    br
+    input(type="text", id="signature", name="signature")
+    br
     br
     button(type='submit') Submit
     
-  object(id='certificate', data='images/template.svg', type='image/svg+xml')
-    
-  script.
-    window.onload=function() {
-      //var certificate = document.getElementById('certificate').contentDocument;
-      
-      var a = document.getElementById("certificate");
-      // Get the SVG document inside the Object tag
-      var svgDoc = a.contentDocument;
-      svgEl = svgDoc.getElementsByTagName('svg')[0];
-      
-      var name = svgDoc.querySelector('#name');
-      var title = svgDoc.querySelector('#title');
-      
-      
-      name.textContent = "Irfan";
-      
-      var nameH = name.getBoundingClientRect().height;
-      var nameW = name.getBoundingClientRect().width;
-      var nameTop = name.getBoundingClientRect().top;
-      
-      console.log(title.transform);
-      
-      var xforms = title.transform.baseVal; // An SVGTransformList
-      var firstXForm = xforms.getItem(0);       // An SVGTransform
-
-      var certL = firstXForm.matrix.e;
-      var certTop = firstXForm.matrix.f;
-      var certW = title.getBoundingClientRect().width;
-      
-      var rateX = certL / title.getBoundingClientRect().left;
-      var rateY = certTop / title.getBoundingClientRect().top;
-      
-      var tmp = (nameW - certW) / 2 * rateX;
-      
-      // Setting
-      name.transform.baseVal.getItem(0).setTranslate(certL - tmp, nameTop + nameH);
-    };
+  //object(id='certificate', data='images/template.svg', type='image/svg+xml')
