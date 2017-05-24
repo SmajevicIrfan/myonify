@@ -33,8 +33,9 @@ module.exports = function() {
     }
 
     fs.writeFile(newPath, data, function(err) {
+      console.log("CSV saved locally!");
+
       scriptFile = path.join(path.dirname(__dirname), 'csv-parser.py');
-      console.log(scriptFile);
       PythonShell.run(scriptFile, options, function(err, results) {
         if (err)
           throw err;
