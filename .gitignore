@@ -31,3 +31,7 @@ npm-debug.log
 
 # Zip generated
 files/*.zip
+
+#Python
+.env
+*.pyc
