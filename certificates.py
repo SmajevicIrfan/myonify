@@ -40,7 +40,7 @@ def generate_certificate(data, dates, signature):
     hours_read = float(data['Time Spent Reading (Hours)'])
     full_hours = math.floor(hours_read)
     full_minutes = math.floor(60 * (hours_read - full_hours))
-    time_read = str(full_hours) + ' h ' + str(full_minutes)
+    time_read = str(full_hours) + 'h ' + str(full_minutes) + 'min'
 
     earliest_lexile = data['Earliest Lexile']
     latest_lexile = data['Latest Lexile']
@@ -76,16 +76,16 @@ def generate_certificate(data, dates, signature):
     '''DATA'''
     c.setFont("Source Sans Pro", 24)
     #WORDS READ
-    #Coordinates: 131, 345.789
-    c.drawString(131, height - 345.789 + 10, "Words read – " + words_read)
+    #Coordinates: 121, 345.789
+    c.drawString(121, height - 345.789 + 10, "Words read – " + words_read)
 
     #PAGES READ
-    #Coordinates: 131, 376.309
-    c.drawString(131, height - 376.309 + 10, "Pages read – " + pages_read)
+    #Coordinates: 121, 376.309
+    c.drawString(121, height - 376.309 + 10, "Pages read – " + pages_read)
 
     #TIME READ
-    #Coordinates: 131, 406.827
-    c.drawString(131, height - 406.827 + 10, "Time spent reading – " + time_read)
+    #Coordinates: 121, 406.827
+    c.drawString(121, height - 406.827 + 10, "Time spent reading – " + time_read)
 
     #EARLIEST LEXILE
     #Coordinates: 480.269, 345.789

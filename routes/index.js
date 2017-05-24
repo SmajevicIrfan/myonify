@@ -24,7 +24,6 @@ module.exports = function() {
 
     var dateFrom = req.body.from.split('-');
     var dateTo = req.body.to.split('-');
-    console.log(dateFrom);
     var dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
                 dateTo[2] + '.' + dateTo[1] + '.' + dateTo[0];
     var signature = req.body.signature;
