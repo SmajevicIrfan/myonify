@@ -67,12 +67,18 @@ app.use(function(err, req, res, next) {
   });
 });
 
-if (!fs.existsSync(__dirname + '/data/tmp'))
+if (!fs.existsSync(__dirname + '/data/tmp')) {
   fs.mkdirSync(__dirname + '/data/tmp');
-if (!fs.existsSync(__dirname + '/data/download'))
+  console.log("'tmp' folder made")
+}
+if (!fs.existsSync(__dirname + '/data/download')) {
   fs.mkdirSync(__dirname + '/data/download');
-if (!fs.existsSync(__dirname + '/data/download/certificates'))
+  console.log("'download' folder made")
+}
+if (!fs.existsSync(__dirname + '/data/download/certificates')) {
   fs.mkdirSync(__dirname + '/data/download/certificates');
+  console.log("'certificates' folder made")
+}
 
 module.exports.app = app;
 module.exports.server = server;
