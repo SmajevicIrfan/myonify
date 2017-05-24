@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var fs = require('fs')
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -66,6 +67,12 @@ app.use(function(err, req, res, next) {
   });
 });
 
+if (!fs.existsSync(__dirname + '/data/tmp'))
+  fs.mkdirSync(__dirname + '/data/tmp');
+if (!fs.existsSync(__dirname + '/data/download'))
+  fs.mkdirSync(__dirname + '/data/download');
+if (!fs.mkdirSync(__dirname + '/data/download/certificates'))
+  fs.mkdirSync(__dirname + '/data/download/certificates');
 
 module.exports.app = app;
 module.exports.server = server;
