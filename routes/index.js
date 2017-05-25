@@ -49,29 +49,10 @@ module.exports = function() {
         });
       });
 
-
       py.stdin.write(newPath + '\n');
       py.stdin.write(dates + '\n');
       py.stdin.write(signature + '\n');
       py.stdin.end();
-      /*PythonShell.run(scriptFile, options, function(err, results) {
-        if (err)
-          throw err;
-
-        console.log(results);
-
-        if (results[0] == '1\r') {
-          fs.unlink(newPath);
-
-          var zipName = __dirname + '/../data/tmp/' + csvName + '.zip';
-          zipFolder(__dirname + '/../data/download', zipName, function(err) {
-            res.download(zipName);
-          });
-        }
-        else {
-          res.sendStatus(500);
-        }
-      });*/
     });
   });
 
