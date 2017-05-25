@@ -1,7 +1,3 @@
-sys
-os
-csv
-math
 openpyxl
 reportlab
 svglib
