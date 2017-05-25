@@ -1,1 +1,0 @@
-This folder will contain all the Excel files that have been generated.

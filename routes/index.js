@@ -7,7 +7,7 @@ const path = require('path');
 var multer  = require('multer')
 var upload = multer();
 
-var PythonShell = require('python-shell');
+var spawn = require('child_process').spawn;
 var zipFolder = require('zip-folder');
 
 module.exports = function() {
@@ -37,7 +37,24 @@ module.exports = function() {
 
       scriptFile = path.resolve(path.dirname(__dirname), 'csv-parser.py');
       console.log("Running scrpt from: " + scriptFile);
-      PythonShell.run(scriptFile, options, function(err, results) {
+
+      var py = spawn('python', [scriptFile]);
+
+      py.stdout.on('end', function() {
+        fs.unlink(newPath);
+
+        var zipName = __dirname + '/../data/tmp/' + csvName + '.zip';
+        zipFolder(__dirname + '/../data/download', zipName, function(err) {
+          res.download(zipName);
+        });
+      });
+
+
+      py.stdin.write(newPath + '\n');
+      py.stdin.write(dates + '\n');
+      py.stdin.write(signature + '\n');
+      py.stdin.end();
+      /*PythonShell.run(scriptFile, options, function(err, results) {
         if (err)
           throw err;
 
@@ -54,7 +71,7 @@ module.exports = function() {
         else {
           res.sendStatus(500);
         }
-      });
+      });*/
     });
   });
 
