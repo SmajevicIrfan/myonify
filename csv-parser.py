@@ -37,7 +37,7 @@ def parse(filename, dates, signature):
                 data = [row[f] for f in headers]
                 excel.add_student(row['Institution'], row['Class'], headers, data)
                 # CERTIFICATE
-                certificates.generate_certificate(row, dates, signature)
+                certificates.generate_certificate(row, dates, signature_title, signature)
 
     return 1
 
@@ -45,10 +45,12 @@ if __name__ == '__main__':
     if len(argv) > 1:
         filename = argv[1]
         dates = argv[2]
-        signature = argv[3].upper()
+        signature_title = argv[3].upper()
+        signature = argv[4].upper()
     else:
         filename = input()
         dates = input()
+        signature_title = input().upper()
         signature = input().upper()
 
     res = parse(filename, dates, signature)

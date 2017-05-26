@@ -32,7 +32,7 @@ def clear():
         if filename.endswith(".pdf"):
             remove(path.join(directory, filename))
 
-def generate_certificate(data, dates, signature):
+def generate_certificate(data, dates, signature_title, signature):
     full_name = data['Last Name'] + ' ' + data['First Name']
     institution = data['Institution']
     school_logo_file = path.join(path.join('data', 'school_logos'), institution + '.png')
@@ -117,7 +117,9 @@ def generate_certificate(data, dates, signature):
 
     #SIGNATURE
     #Coordinates: 578.85, 507.72
-    c.drawCentredString(578.85, height - 507.72, signature)
+    c.drawCentredString(578.85, height - 507.72, signature_title)
+    #Coordinates: 482.72
+    c.drawCentredString(578.85, height - 482.72, signature)
 
     '''NAME'''
     #Coordinates: 251.085, Color: #801417

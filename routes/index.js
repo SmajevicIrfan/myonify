@@ -28,13 +28,10 @@ module.exports = function() {
     var dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
                 dateTo[2] + '.' + dateTo[1] + '.' + dateTo[0];
     var signature = req.body.signature;
+    var signature_title = req.body.signature_title;
 
     fs.writeFile(newPath, data, (err) => {
-      console.log("CSV saved locally!");
-
       scriptFile = path.resolve(path.dirname(__dirname), 'csv-parser.py');
-      console.log("Running scrpt from: " + scriptFile);
-
       var py = spawn('python', [scriptFile]);
 
       py.stdout.on('end', () => {
@@ -54,6 +51,7 @@ module.exports = function() {
 
       py.stdin.write(newPath + '\n');
       py.stdin.write(dates + '\n');
+      py.stdin.write(signature_title + '\n');
       py.stdin.write(signature + '\n');
       py.stdin.end();
     });
