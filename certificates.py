@@ -19,6 +19,7 @@ great_vibes_file = path.join(path.join('data', 'fonts'), 'GreatVibes.ttf')
 
 template_file = path.join('data', 'template.svg')
 myON_logo_file = path.join('data', 'myON_logo.png')
+global_edu_logo_file = path.join(path.join('data', 'school_logos'), 'GLOBAL_EDU.png')
 template = svg2rlg(template_file)
 
 pdfmetrics.registerFont(TTFont("Source Sans Pro", source_sans_reg_file))
@@ -33,6 +34,8 @@ def clear():
 
 def generate_certificate(data, dates, signature):
     full_name = data['Last Name'] + ' ' + data['First Name']
+    institution = data['Institution']
+    school_logo_file = path.join(path.join('data', 'school_logos'), institution + '.png')
 
     pages_read = data['Pages Read (BF)']
     words_read = data['Words Read (BF)']
@@ -61,7 +64,12 @@ def generate_certificate(data, dates, signature):
 
     #MyON LOGO
     #Coordinates: 121.935, 414.48
-    c.drawImage(myON_logo_file, 121.935, height - 414.48, mask='auto', width=600.02, height=200.11)
+    c.drawImage(myON_logo_file, 121.935, height - 444.48, mask='auto', width=600.02, height=200.11)
+
+    #School LOGO
+    c.drawImage(school_logo_file, 655.57, height - 202, mask='auto', width=106.911, height=137)
+    #GLOBAL EDUCATION LOGO
+    c.drawImage(global_edu_logo_file, 72.57, height - 202, mask='auto', width=103.894, height=135)
 
     #CERTIFICATE HEADER
     #Coordinates: 151.208, Color: #4E4E4E
