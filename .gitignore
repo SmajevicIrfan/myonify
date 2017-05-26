@@ -29,8 +29,9 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-# Zip generated
-files/*.zip
+# Generated Files
+data/download/*.xlsx
+data/download/certificates/*.pdf
 
 #Python
 .env

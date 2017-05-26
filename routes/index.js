@@ -28,11 +28,8 @@ module.exports = function() {
     var dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
                 dateTo[2] + '.' + dateTo[1] + '.' + dateTo[0];
     var signature = req.body.signature;
-    var options = {
-      args: [newPath, dates, signature]
-    }
 
-    fs.writeFile(newPath, data, function(err) {
+    fs.writeFile(newPath, data, (err) => {
       console.log("CSV saved locally!");
 
       scriptFile = path.resolve(path.dirname(__dirname), 'csv-parser.py');
@@ -40,12 +37,18 @@ module.exports = function() {
 
       var py = spawn('python', [scriptFile]);
 
-      py.stdout.on('end', function() {
+      py.stdout.on('end', () => {
         fs.unlink(newPath);
 
         var zipName = __dirname + '/../data/tmp/' + csvName + '.zip';
-        zipFolder(__dirname + '/../data/download', zipName, function(err) {
-          res.download(zipName);
+        zipFolder(__dirname + '/../data/download', zipName, (err) => {
+          res.download(zipName, (err) => {
+            if (err)
+              throw err;
+            else {
+              fs.unlink(zipName);
+            }
+          });
         });
       });
 
