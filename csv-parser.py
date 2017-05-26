@@ -7,10 +7,6 @@ def parse(filename, dates, signature):
     excel.clear()
     certificates.clear()
 
-    print(filename)
-    print(dates)
-    print(signature)
-
     with open(path.join('data', 'student-ids.csv'), 'r', encoding='utf-8') as student_data_file:
         reader = csv.DictReader(student_data_file)
 
@@ -50,11 +46,10 @@ if __name__ == '__main__':
         filename = argv[1]
         dates = argv[2]
         signature = argv[3].upper()
-        res = parse(filename, dates, signature)
-        print(res)
     else:
         filename = input()
         dates = input()
         signature = input().upper()
-        res = parse(filename, dates, signature)
-        print(res)
+
+    res = parse(filename, dates, signature)
+    print(res)

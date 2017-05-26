@@ -64,7 +64,7 @@ def generate_certificate(data, dates, signature):
 
     #MyON LOGO
     #Coordinates: 121.935, 414.48
-    c.drawImage(myON_logo_file, 121.935, height - 444.48, mask='auto', width=600.02, height=200.11)
+    c.drawImage(myON_logo_file, 121.935, height - 429.48, mask='auto', width=600.02, height=200.11)
 
     #School LOGO
     c.drawImage(school_logo_file, 655.57, height - 202, mask='auto', width=106.911, height=137)
