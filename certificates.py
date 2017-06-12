@@ -91,21 +91,30 @@ def generate_certificate(data, dates, signature_title, signature):
     #Coordinates: 121, 376.309
     c.drawString(121, height - 376.309 + 10, "Pages read – " + pages_read)
 
-    #TIME READ
-    #Coordinates: 121, 406.827
-    c.drawString(121, height - 406.827 + 10, "Time spent reading – " + time_read)
+    if (lexile_progress[0] == '+'):
+        #TIME READ
+        #Coordinates: 121, 406.827
+        c.drawString(121, height - 406.827 + 10, "Time spent reading – " + time_read)
 
-    #EARLIEST LEXILE
-    #Coordinates: 480.269, 345.789
-    c.drawString(480.269, height - 345.789 + 10, "Earliest lexile level – " + earliest_lexile)
+        #EARLIEST LEXILE
+        #Coordinates: 480.269, 345.789
+        c.drawString(480.269, height - 345.789 + 10, "Earliest lexile level – " + earliest_lexile)
 
-    #LATEST LEXILE
-    #Coordinates: 480.269, 376.309
-    c.drawString(480.269, height - 376.309 + 10, "Latest lexile level – " + latest_lexile)
+        #LATEST LEXILE
+        #Coordinates: 480.269, 376.309
+        c.drawString(480.269, height - 376.309 + 10, "Latest lexile level – " + latest_lexile)
 
-    #LEXILE PROGRESS
-    #Coordinates: 480.269, 406.827
-    c.drawString(480.269, height - 406.827 + 10, "Lexile progress – " + lexile_progress)
+        #LEXILE PROGRESS
+        #Coordinates: 480.269, 406.827
+        c.drawString(480.269, height - 406.827 + 10, "Lexile progress – " + lexile_progress)
+    else:
+        #TIME READ
+        #Coordinates: 450.269, 345.789
+        c.drawString(450.269, height - 345.789 + 10, "Time spent reading – " + time_read)
+
+        #CURRENT LEXILE
+        #Coordinates: 450.269, 376.309
+        c.drawString(450.269, height - 376.309 + 10, "Current lexile level – " + latest_lexile)
 
     '''FOOTER'''
     c.setFont("Source Sans Pro-It", 20)
