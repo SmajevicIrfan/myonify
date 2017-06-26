@@ -3,12 +3,6 @@ from os import path, listdir, remove
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-def clear():
-    directory = path.join('data', 'download')
-    for filename in listdir(directory):
-        if filename.endswith(".xlsx"):
-            remove(path.join(directory, filename))
-
 def add_row(ws, row_index, data):
     col_index = 1
     for info in data:
@@ -18,8 +12,8 @@ def add_row(ws, row_index, data):
             ws.cell(row = row_index, column = col_index, value = info)
         col_index += 1
 
-def add_student(institution, student_class, headers, data):
-    filename = path.join(path.join('data', 'download'), institution + '.xlsx')
+def add_student(_id, institution, student_class, headers, data):
+    filename = path.join('data', _id, 'download', institution + '.xlsx')
 
     if path.isfile(filename):
         wb = load_workbook(filename)

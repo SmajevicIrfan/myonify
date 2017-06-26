@@ -1,14 +1,41 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var fs = require('fs');
+const fs = require('fs');
 const path = require('path');
+const rimraf = require('rimraf');
 
-var multer  = require('multer')
-var upload = multer();
+const multer  = require('multer')
+const upload = multer();
 
-var spawn = require('child_process').spawn;
-var zipFolder = require('zip-folder');
+const spawn = require('child_process').spawn;
+const zipFolder = require('zip-folder');
+
+const DATA_PATH = path.join(path.dirname(__dirname), 'data');
+
+const makeID = length => {
+    let result = "";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for(let i = 0; i < length; i++)
+        result += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return result;
+}
+
+const makeStructure = (_id, fileName) => {
+  fs.mkdirSync(path.join(DATA_PATH, _id));
+  console.log("case folder made");
+
+  fs.mkdirSync(path.join(DATA_PATH, _id, 'tmp'));
+  console.log("'tmp' folder made");
+
+  fs.mkdirSync(path.join(DATA_PATH, _id, 'download'));
+  console.log("'download' folder made");
+
+  fs.mkdirSync(path.join(DATA_PATH, _id, 'download', 'certificates'));
+  console.log("'certificates' folder made");
+}
 
 module.exports = function() {
   /* GET home page. */
@@ -18,42 +45,43 @@ module.exports = function() {
   });
 
   router.post('/', upload.single('dataCSV'), function(req, res, next) {
-    var data = req.file.buffer;
+    const data = req.file.buffer;
 
-    csvName = req.file.originalname.split('.')[0];
-    var newPath = __dirname + '/../data/tmp/' + req.file.originalname;
+    const csvName = req.file.originalname.split('.')[0];
+    let _id = makeID(5);
 
-    var dateFrom = req.body.from.split('-');
-    var dateTo = req.body.to.split('-');
-    var dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
+    while (fs.existsSync(path.join(DATA_PATH, _id)))
+      _id = makeID(5);
+
+    makeStructure(_id, csvName);
+    const newPath = path.join(DATA_PATH, _id, 'tmp', req.file.originalname);
+
+    const dateFrom = req.body.from.split('-');
+    const dateTo = req.body.to.split('-');
+    const dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
                 dateTo[2] + '.' + dateTo[1] + '.' + dateTo[0];
-    var signature = req.body.signature;
-    var signature_title = req.body.signature_title;
+    const signature = req.body.signature;
+    const signature_title = req.body.signature_title;
 
     fs.writeFile(newPath, data, (err) => {
       scriptFile = path.resolve(path.dirname(__dirname), 'csv-parser.py');
-      var py = spawn('python', [scriptFile]);
+      const py = spawn('python', [scriptFile, _id, newPath, dates, signature_title, signature]);
 
       py.stdout.on('end', () => {
-        fs.unlink(newPath);
+        const zipName = path.join(DATA_PATH, _id, 'tmp', csvName + '.zip');
 
-        var zipName = __dirname + '/../data/tmp/' + csvName + '.zip';
-        zipFolder(__dirname + '/../data/download', zipName, (err) => {
+        zipFolder(path.join(DATA_PATH, _id, 'download'), zipName, (err) => {
           res.download(zipName, (err) => {
             if (err)
               throw err;
             else {
-              fs.unlink(zipName);
+              rimraf(path.join(DATA_PATH, _id), () => {
+                console.log("DOWNLOAD COMPLETED & FOLDER REMOVED");
+              });
             }
           });
         });
       });
-
-      py.stdin.write(newPath + '\n');
-      py.stdin.write(dates + '\n');
-      py.stdin.write(signature_title + '\n');
-      py.stdin.write(signature + '\n');
-      py.stdin.end();
     });
   });
 

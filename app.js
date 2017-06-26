@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
+  indentedSyntax: false,
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,19 +66,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-if (!fs.existsSync(__dirname + '/data/tmp')) {
-  fs.mkdirSync(__dirname + '/data/tmp');
-  console.log("'tmp' folder made")
-}
-if (!fs.existsSync(__dirname + '/data/download')) {
-  fs.mkdirSync(__dirname + '/data/download');
-  console.log("'download' folder made")
-}
-if (!fs.existsSync(__dirname + '/data/download/certificates')) {
-  fs.mkdirSync(__dirname + '/data/download/certificates');
-  console.log("'certificates' folder made")
-}
 
 module.exports.app = app;
 module.exports.server = server;

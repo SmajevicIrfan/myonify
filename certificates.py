@@ -13,29 +13,23 @@ import math
 
 width, height = landscape(A4)
 
-source_sans_reg_file = path.join(path.join('data', 'fonts'), 'SourceSansPro.ttf')
-source_sans_it_file = path.join(path.join('data', 'fonts'), 'SourceSansPro-It.ttf')
-great_vibes_file = path.join(path.join('data', 'fonts'), 'GreatVibes.ttf')
+source_sans_reg_file = path.join('data', 'fonts', 'SourceSansPro.ttf')
+source_sans_it_file = path.join('data', 'fonts', 'SourceSansPro-It.ttf')
+great_vibes_file = path.join('data', 'fonts', 'GreatVibes.ttf')
 
 template_file = path.join('data', 'template.svg')
 myON_logo_file = path.join('data', 'myON_logo.png')
-global_edu_logo_file = path.join(path.join('data', 'school_logos'), 'GLOBAL_EDU.png')
+global_edu_logo_file = path.join('data', 'school_logos', 'GLOBAL_EDU.png')
 template = svg2rlg(template_file)
 
 pdfmetrics.registerFont(TTFont("Source Sans Pro", source_sans_reg_file))
 pdfmetrics.registerFont(TTFont("Source Sans Pro-It", source_sans_it_file))
 pdfmetrics.registerFont(TTFont("GreatVibes", great_vibes_file))
 
-def clear():
-    directory = path.join(path.join('data', 'download'), 'certificates')
-    for filename in listdir(directory):
-        if filename.endswith(".pdf"):
-            remove(path.join(directory, filename))
-
-def generate_certificate(data, dates, signature_title, signature):
+def generate_certificate(_id, data, dates, signature_title, signature):
     full_name = data['Last Name'] + ' ' + data['First Name']
     institution = data['Institution']
-    school_logo_file = path.join(path.join('data', 'school_logos'), institution + '.png')
+    school_logo_file = path.join('data', 'school_logos', institution + '.png')
 
     pages_read = data['Pages Read (BF)']
     words_read = data['Words Read (BF)']
@@ -55,7 +49,7 @@ def generate_certificate(data, dates, signature_title, signature):
         lexile_progress = '+' + lexile_progress
 
     #PDF Generation
-    outfile = path.join(path.join(path.join('data', 'download'), 'certificates'), full_name + '.pdf')
+    outfile = path.join('data', _id,  'download', 'certificates', full_name + '.pdf')
     c = canvas.Canvas(outfile, pagesize=landscape(A4))
 
     #TEMPLATE
