@@ -1,1 +1,9 @@
 @import "materialize/materialize";
+
+.datepicker {
+  cursor: pointer;
+}
+
+.picker__date-display, .picker__day--selected {
+    @extend .red, .lighten-2;
+}

@@ -1,26 +1,84 @@
 extends layout
 
 block content
-  form(method='post', enctype='multipart/form-data', onsubmit="loadSocket()")
-    input(type="file", name="dataCSV")
-    br
-    br
-    p Dates
-    label(for="from") From:  
-    input(type="date", id="from", name="from")
-    br
-    label(for="To") To:  
-    input(type="date", id="to", name="to")
-    br
-    br
-    label(for="signature") Who is signing the certificates?
-    br
-    label(for="signature_title") Title:
-    input(type="text", id="signature_title", name="signature_title")
-    br
-    input(type="text", id="signature", name="signature")
-    br
-    br
-    button(type='submit') Submit
+  .container
+    form(method='post', enctype='multipart/form-data')
+      .file-field.input-field
+        button.red.darken-4.btn
+          span Choose CSV
+          input(type='file', name='dataCSV')
+        .file-path-wrapper
+          input(type="text").file-path.validate
+      h5 Dates
+      .input-field
+        input(type="date", id="from", name="from").datepicker
+        label(for="from") From:  
+      .input-field
+        input(type="date", id="to", name="to").datepicker
+        label(for="To") To:  
+      br
+      
+      h5 Who is signing the certificates?
+      .input-field
+        input(type="text", id="signature_title", name="signature_title").validate
+        label(for="signature_title") Title or position
+        
+      .input-field
+        input(type="text", id="signature", name="signature").validate
+        label(for="signature") Name
+
+      button(type='submit', style='width:100%;').btn.red.darken-3
+        span Submit
+        i.material-icons.right send
+
+block scripts
+  script.
+    $('#from').pickadate({
+      format: 'dd/mm/yyyy',
+      max: true,
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 1, // Creates a dropdown of 1 years to control year
+      
+      onSet: function(object) {
+        console.log($())
+        var $input1 = $('#from').pickadate(),
+            $input2 = $('#to').pickadate();
+        
+        var picker1 = $input1.pickadate('picker'),
+            picker2 = $input2.pickadate('picker');
+        
+        if (object.select) {
+          var value = new Date(object.select);
+          
+          picker2.set('min', value);
+          
+          setTimeout(function() {
+            picker2.open();
+          }, 100);
+        }
+        
+        if ((object.clear === null && object.clear !== undefined) || object.clear) {
+          picker2.clear();
+          picker2.set('min', false);
+        }
+
+        picker1.close();
+      }
+    });
     
-  //object(id='certificate', data='images/template.svg', type='image/svg+xml')
+    $('#to').pickadate({
+      format: 'dd/mm/yyyy',
+      max: true,
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 1, // Creates a dropdown of 1 years to control year
+      
+      onSet: function(object) {
+        var $input2 = $('#to').pickadate();
+        var picker2 = $input2.pickadate('picker');
+        
+        if ((object.clear === null && object.clear !== undefined) || object.clear)
+          Materialize.updateTextFields();
+        
+        picker2.close();
+      }
+    });

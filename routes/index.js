@@ -41,12 +41,10 @@ module.exports = function() {
   /* GET home page. */
   router.get('/', function(req, res, next) {
     console.log("SERVING");
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'MyONify - Create MyON certificates' });
   });
 
   router.post('/', upload.single('dataCSV'), function(req, res, next) {
-    const data = req.file.buffer;
-
     const csvName = req.file.originalname.split('.')[0];
     let _id = makeID(5);
 
@@ -56,14 +54,13 @@ module.exports = function() {
     makeStructure(_id, csvName);
     const newPath = path.join(DATA_PATH, _id, 'tmp', req.file.originalname);
 
-    const dateFrom = req.body.from.split('-');
-    const dateTo = req.body.to.split('-');
-    const dates = dateFrom[2] + '.' + dateFrom[1] + '.' + dateFrom[0] + ' – ' +
-                dateTo[2] + '.' + dateTo[1] + '.' + dateTo[0];
+    const dateFrom = req.body.from.replace(/\//g, '.');
+    const dateTo = req.body.to.replace(/\//g, '.');
+    const dates = dateFrom + ' – ' + dateTo;
     const signature = req.body.signature;
     const signature_title = req.body.signature_title;
 
-    fs.writeFile(newPath, data, (err) => {
+    fs.writeFile(newPath, req.file.buffer, (err) => {
       scriptFile = path.resolve(path.dirname(__dirname), 'csv-parser.py');
       const py = spawn('python', [scriptFile, _id, newPath, dates, signature_title, signature]);
 
@@ -76,7 +73,7 @@ module.exports = function() {
               throw err;
             else {
               rimraf(path.join(DATA_PATH, _id), () => {
-                console.log("DOWNLOAD COMPLETED & FOLDER REMOVED");
+                console.log(`DOWNLOAD FOR ${_id} COMPLETED & FOLDER REMOVED`);
               });
             }
           });

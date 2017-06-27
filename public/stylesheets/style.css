@@ -22,7 +22,7 @@
 .materialize-red-text.text-lighten-3 {
   color: #f3989b !important; }
 
-.materialize-red.lighten-2 {
+.materialize-red.lighten-2, .materialize-red.picker__date-display, .materialize-red.picker__day--selected {
   background-color: #ee6e73 !important; }
 
 .materialize-red-text.text-lighten-2 {
@@ -58,85 +58,85 @@
 .materialize-red-text.text-darken-4 {
   color: #8b1014 !important; }
 
-.red {
+.red, .picker__date-display, .picker__day--selected {
   background-color: #F44336 !important; }
 
 .red-text {
   color: #F44336 !important; }
 
-.red.lighten-5 {
+.red.lighten-5, .lighten-5.picker__date-display, .lighten-5.picker__day--selected {
   background-color: #FFEBEE !important; }
 
 .red-text.text-lighten-5 {
   color: #FFEBEE !important; }
 
-.red.lighten-4 {
+.red.lighten-4, .lighten-4.picker__date-display, .lighten-4.picker__day--selected {
   background-color: #FFCDD2 !important; }
 
 .red-text.text-lighten-4 {
   color: #FFCDD2 !important; }
 
-.red.lighten-3 {
+.red.lighten-3, .lighten-3.picker__date-display, .lighten-3.picker__day--selected {
   background-color: #EF9A9A !important; }
 
 .red-text.text-lighten-3 {
   color: #EF9A9A !important; }
 
-.red.lighten-2 {
+.red.lighten-2, .picker__date-display, .picker__day--selected {
   background-color: #E57373 !important; }
 
 .red-text.text-lighten-2 {
   color: #E57373 !important; }
 
-.red.lighten-1 {
+.red.lighten-1, .lighten-1.picker__date-display, .lighten-1.picker__day--selected {
   background-color: #EF5350 !important; }
 
 .red-text.text-lighten-1 {
   color: #EF5350 !important; }
 
-.red.darken-1 {
+.red.darken-1, .darken-1.picker__date-display, .darken-1.picker__day--selected {
   background-color: #E53935 !important; }
 
 .red-text.text-darken-1 {
   color: #E53935 !important; }
 
-.red.darken-2 {
+.red.darken-2, .darken-2.picker__date-display, .darken-2.picker__day--selected {
   background-color: #D32F2F !important; }
 
 .red-text.text-darken-2 {
   color: #D32F2F !important; }
 
-.red.darken-3 {
+.red.darken-3, .darken-3.picker__date-display, .darken-3.picker__day--selected {
   background-color: #C62828 !important; }
 
 .red-text.text-darken-3 {
   color: #C62828 !important; }
 
-.red.darken-4 {
+.red.darken-4, .darken-4.picker__date-display, .darken-4.picker__day--selected {
   background-color: #B71C1C !important; }
 
 .red-text.text-darken-4 {
   color: #B71C1C !important; }
 
-.red.accent-1 {
+.red.accent-1, .accent-1.picker__date-display, .accent-1.picker__day--selected {
   background-color: #FF8A80 !important; }
 
 .red-text.text-accent-1 {
   color: #FF8A80 !important; }
 
-.red.accent-2 {
+.red.accent-2, .accent-2.picker__date-display, .accent-2.picker__day--selected {
   background-color: #FF5252 !important; }
 
 .red-text.text-accent-2 {
   color: #FF5252 !important; }
 
-.red.accent-3 {
+.red.accent-3, .accent-3.picker__date-display, .accent-3.picker__day--selected {
   background-color: #FF1744 !important; }
 
 .red-text.text-accent-3 {
   color: #FF1744 !important; }
 
-.red.accent-4 {
+.red.accent-4, .accent-4.picker__date-display, .accent-4.picker__day--selected {
   background-color: #D50000 !important; }
 
 .red-text.text-accent-4 {
@@ -166,7 +166,7 @@
 .pink-text.text-lighten-3 {
   color: #f48fb1 !important; }
 
-.pink.lighten-2 {
+.pink.lighten-2, .pink.picker__date-display, .pink.picker__day--selected {
   background-color: #f06292 !important; }
 
 .pink-text.text-lighten-2 {
@@ -250,7 +250,7 @@
 .purple-text.text-lighten-3 {
   color: #ce93d8 !important; }
 
-.purple.lighten-2 {
+.purple.lighten-2, .purple.picker__date-display, .purple.picker__day--selected {
   background-color: #ba68c8 !important; }
 
 .purple-text.text-lighten-2 {
@@ -334,7 +334,7 @@
 .deep-purple-text.text-lighten-3 {
   color: #b39ddb !important; }
 
-.deep-purple.lighten-2 {
+.deep-purple.lighten-2, .deep-purple.picker__date-display, .deep-purple.picker__day--selected {
   background-color: #9575cd !important; }
 
 .deep-purple-text.text-lighten-2 {
@@ -418,7 +418,7 @@
 .indigo-text.text-lighten-3 {
   color: #9fa8da !important; }
 
-.indigo.lighten-2 {
+.indigo.lighten-2, .indigo.picker__date-display, .indigo.picker__day--selected {
   background-color: #7986cb !important; }
 
 .indigo-text.text-lighten-2 {
@@ -502,7 +502,7 @@
 .blue-text.text-lighten-3 {
   color: #90CAF9 !important; }
 
-.blue.lighten-2 {
+.blue.lighten-2, .blue.picker__date-display, .blue.picker__day--selected {
   background-color: #64B5F6 !important; }
 
 .blue-text.text-lighten-2 {
@@ -586,7 +586,7 @@
 .light-blue-text.text-lighten-3 {
   color: #81d4fa !important; }
 
-.light-blue.lighten-2 {
+.light-blue.lighten-2, .light-blue.picker__date-display, .light-blue.picker__day--selected {
   background-color: #4fc3f7 !important; }
 
 .light-blue-text.text-lighten-2 {
@@ -670,7 +670,7 @@
 .cyan-text.text-lighten-3 {
   color: #80deea !important; }
 
-.cyan.lighten-2 {
+.cyan.lighten-2, .cyan.picker__date-display, .cyan.picker__day--selected {
   background-color: #4dd0e1 !important; }
 
 .cyan-text.text-lighten-2 {
@@ -754,7 +754,7 @@
 .teal-text.text-lighten-3 {
   color: #80cbc4 !important; }
 
-.teal.lighten-2 {
+.teal.lighten-2, .teal.picker__date-display, .teal.picker__day--selected {
   background-color: #4db6ac !important; }
 
 .teal-text.text-lighten-2 {
@@ -838,7 +838,7 @@
 .green-text.text-lighten-3 {
   color: #A5D6A7 !important; }
 
-.green.lighten-2 {
+.green.lighten-2, .green.picker__date-display, .green.picker__day--selected {
   background-color: #81C784 !important; }
 
 .green-text.text-lighten-2 {
@@ -922,7 +922,7 @@
 .light-green-text.text-lighten-3 {
   color: #c5e1a5 !important; }
 
-.light-green.lighten-2 {
+.light-green.lighten-2, .light-green.picker__date-display, .light-green.picker__day--selected {
   background-color: #aed581 !important; }
 
 .light-green-text.text-lighten-2 {
@@ -1006,7 +1006,7 @@
 .lime-text.text-lighten-3 {
   color: #e6ee9c !important; }
 
-.lime.lighten-2 {
+.lime.lighten-2, .lime.picker__date-display, .lime.picker__day--selected {
   background-color: #dce775 !important; }
 
 .lime-text.text-lighten-2 {
@@ -1090,7 +1090,7 @@
 .yellow-text.text-lighten-3 {
   color: #fff59d !important; }
 
-.yellow.lighten-2 {
+.yellow.lighten-2, .yellow.picker__date-display, .yellow.picker__day--selected {
   background-color: #fff176 !important; }
 
 .yellow-text.text-lighten-2 {
@@ -1174,7 +1174,7 @@
 .amber-text.text-lighten-3 {
   color: #ffe082 !important; }
 
-.amber.lighten-2 {
+.amber.lighten-2, .amber.picker__date-display, .amber.picker__day--selected {
   background-color: #ffd54f !important; }
 
 .amber-text.text-lighten-2 {
@@ -1258,7 +1258,7 @@
 .orange-text.text-lighten-3 {
   color: #ffcc80 !important; }
 
-.orange.lighten-2 {
+.orange.lighten-2, .orange.picker__date-display, .orange.picker__day--selected {
   background-color: #ffb74d !important; }
 
 .orange-text.text-lighten-2 {
@@ -1342,7 +1342,7 @@
 .deep-orange-text.text-lighten-3 {
   color: #ffab91 !important; }
 
-.deep-orange.lighten-2 {
+.deep-orange.lighten-2, .deep-orange.picker__date-display, .deep-orange.picker__day--selected {
   background-color: #ff8a65 !important; }
 
 .deep-orange-text.text-lighten-2 {
@@ -1426,7 +1426,7 @@
 .brown-text.text-lighten-3 {
   color: #bcaaa4 !important; }
 
-.brown.lighten-2 {
+.brown.lighten-2, .brown.picker__date-display, .brown.picker__day--selected {
   background-color: #a1887f !important; }
 
 .brown-text.text-lighten-2 {
@@ -1486,7 +1486,7 @@
 .blue-grey-text.text-lighten-3 {
   color: #b0bec5 !important; }
 
-.blue-grey.lighten-2 {
+.blue-grey.lighten-2, .blue-grey.picker__date-display, .blue-grey.picker__day--selected {
   background-color: #90a4ae !important; }
 
 .blue-grey-text.text-lighten-2 {
@@ -1546,7 +1546,7 @@
 .grey-text.text-lighten-3 {
   color: #eeeeee !important; }
 
-.grey.lighten-2 {
+.grey.lighten-2, .grey.picker__date-display, .grey.picker__day--selected {
   background-color: #e0e0e0 !important; }
 
 .grey-text.text-lighten-2 {
@@ -6858,5 +6858,8 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   stroke-width: 4;
   stroke-linecap: round;
   /*shape-rendering: crispEdges;*/ }
+
+.datepicker {
+  cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
