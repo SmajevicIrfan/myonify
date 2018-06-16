@@ -141,11 +141,9 @@ celerybeat-schedule.*
 
 # Environments
 .venv
-env/
-venv/
+py-env/
 ENV/
-env.bak/
-venv.bak/
+py-env.bak/
 
 # Spyder project settings
 .spyderproject
@@ -189,5 +187,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+test
 
 # End of https://www.gitignore.io/api/node,python,windows,visualstudiocode
