@@ -1,3 +1,7 @@
-openpyxl
-reportlab
-svglib
+et-xmlfile==1.0.1
+jdcal==1.4
+lxml==4.2.1
+openpyxl==2.5.3
+Pillow==5.1.0
+reportlab==3.4.0
+svglib==0.8.1
