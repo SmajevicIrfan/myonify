@@ -32,11 +32,6 @@ const compare = (student1, student2) => {
 	return 0;
 };
 
-router.get('/', (req, res) => {
-	//res.status(200).send('Welcome to my app');
-	res.sendFile(path.join(__dirname, '..', 'test.xlsx'));
-});
-
 router.post('/', upload.fields(uploadFields), (req, res) => {
 	const csvFile = req.files['dataCSV'][0];
 	
