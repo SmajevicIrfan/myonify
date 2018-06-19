@@ -1,21 +1,15 @@
-from sys import stdin, stdout
+from sys import argv, stdin, stdout
+from os import path
 import json
 
 from openpyxl import Workbook
 
-def main():
-    print('START')
+def main(saveLocation):
     headers = stdin.readline()[:-1].split(',')
 
     wb = Workbook()
     wb.remove(wb.active)
 
-    line = stdin.readline()[:-1]
-    print('ć'.encode())
-    print('č'.encode())
-    print('ž'.encode())
-    print('š'.encode())
-    print('đ'.encode())
     while True:
         line = stdin.readline()[:-1]
         if line == '':
@@ -26,14 +20,17 @@ def main():
             wb.create_sheet(student['grade'])
             wb[student['grade']].append(headers)
         
-        print(str(student['last name']).encode())
         wb[student['grade']].append(list(student.values()))
     
-    wb.save('test.xlsx')
+    wb.save(path.join(saveLocation, 'report.xlsx'))
 
-    print('Finished')
+    stdout.write('DONE excel_report')
     stdout.flush()
 
 #start process
 if __name__ == '__main__':
-    main()
+    if len(argv) >= 2:
+        main(argv[1])
+    else:
+        stdout.write('ERROR')
+        stdout.flush()

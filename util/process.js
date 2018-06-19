@@ -1,39 +1,24 @@
 const path = require('path');
-const { spawn } = require('child_process');
+const tmp = require('tmp');
+const rimraf = require('rimraf');
 
-module.exports = (headers, data) => {
-	
-	return new Promise((resolve, reject) => {
-		if (data.length === 0)
-			reject('CSV file empty');
+const processCerts = require('./processCerts');
+const processExcel = require('./processExcel');
 
-		let excel_process = spawn('python', [path.join(__dirname, 'excel-process.py')]);
-		// Send headers to the excel processor
-		excel_process.stdin.write(headers.toString() + '\n');
-		excel_process.stdin.write('ć č ž š đ\n');
-		
-		data.forEach(student => {
-			excel_process.stdin.write(JSON.stringify(student) + '\n');
-		});
-		excel_process.stdin.end();
-
-		excel_process.stdout.on('data', chunk => {
-			// eslint-disable-next-line no-console
-			console.log(chunk.toString('utf8'));
-			if (chunk.toString('utf8') === 'ERROR')
-				reject('Some error occured while generating the excel report. Please debug for more information.');
+const promisify = (data, location) =>
+	Promise.all([processCerts(data, location), processExcel(data, location)])
+		.then(() => 
+			Promise.resolve(path.basename(location))
+		)
+		.catch(error => {
+			rimraf(location, () => {});
+			return Promise.reject(error);
 		});
 
-		const used = process.memoryUsage();
-		// eslint-disable-next-line no-console
-		console.log('MEMORY USAGE:');
-		for (let key in used) {
-			// eslint-disable-next-line no-console
-			console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
-		}
-	
-		excel_process.stdout.on('end', () => {
-			resolve('OK');
-		});
-	});
+module.exports = data => {
+	if (data.students.length === 0)
+		return Promise.reject('CSV file empty');
+
+	const workDirectory = tmp.dirSync({prefix: 'report_', keep: true});
+	return promisify(data, workDirectory.name);
 };
