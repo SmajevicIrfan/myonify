@@ -3,8 +3,8 @@ const multer = require('multer');
 
 const process = require('../util/process');
 
-let router = express.Router();
-let upload = multer({});
+const router = express.Router();
+const upload = multer({});
 
 const uploadFields = [
 	{ name: 'dataCSV', maxCount: 1 },

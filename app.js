@@ -7,14 +7,14 @@ const logger = require('morgan');
 const app = express();
 
 const uploadRouter = require('./routes/upload');
-//const downloadRouter = require('./routes/download');
+const downloadRouter = require('./routes/download');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/upload', uploadRouter);
-//app.use('/api/download', downloadRouter);
+app.use('/api/download', downloadRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
