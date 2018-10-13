@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	.container.row
+		form(method='post', enctype='multipart/form-data').col.s12
+			.row
+				.file-field.input-field.col.s12
+					a.red.darken-1.btn
+						span Choose CSV
+						input(type='file', name='dataCSV')
+					.file-path-wrapper
+						input(type="text").file-path.validate
+			.row
+				.file-field.input-field.col.s6
+					a.pink.darken-1.btn
+						span Choose Left Image
+						input(type='file', name='leftLogo')
+					.file-path-wrapper
+						input(type="text").file-path
+				.file-field.input-field.col.s6
+					a.pink.darken-1.btn
+						span Choose Right Image
+						input(type='file', name='rightLogo')
+					.file-path-wrapper
+						input(type="text").file-path
+			.row
+				.col.s12
+					h5 Reading Period
+					.row
+						.input-field.col.s6
+							input(type="text", id="from", name="from").datepicker
+							label(for="from", id='label_from') From:  
+						.input-field.col.s6
+							input(type="text", id="to", name="to").datepicker
+							label(for="To", id='label_to') To:  
+			
+			.row
+				.col.s12
+					h5 Who is signing the certificates?
+					.row
+						.input-field.col.s6
+							input(type="text", id="signature_title", name="signature_title").validate
+							label(for="signature_title") Title or Position
+							
+						.input-field.col.s6
+							input(type="text", id="signature", name="signature").validate
+							label(for="signature") Full Name
+			.row
+				.col.s12
+					button(type='submit', style='width:100%;', id='submit').btn.red.darken-1
+						span Submit
+						i.material-icons.right send
+
+block scripts
+	script(src="/js/main.min.js")
