@@ -34,7 +34,8 @@ module.exports = (env, argv) => {
 		});
 		config.plugins = [];
 	}
-	else {
+
+	if (argv.mode == 'production') {
 		config.devtool == false;
 		config.module.rules.push({
 			test: /\.scss$/,

@@ -6,7 +6,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node ./bin/www"
+    "server": "node ./bin/www",
+    "build": "webpack -p",
+    "start": "npm run build & npm run server"
   },
   "repository": {
     "type": "git",
